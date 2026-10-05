@@ -1,58 +1,212 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Gestão de Produção
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+Sistema web para gerenciamento de produção, custos, estoque, clientes e orçamentos, desenvolvido como projeto de estudo e portfólio com Laravel.
+
+<p align="left">
+  <img src="https://img.shields.io/badge/Laravel-13-FF2D20?logo=laravel&logoColor=white&style=for-the-badge" alt="Laravel 13">
+  <img src="https://img.shields.io/badge/PHP-8.3%2B-777BB4?logo=php&logoColor=white&style=for-the-badge" alt="PHP 8.3+">
+  <img src="https://img.shields.io/badge/MySQL-8.4-4479A1?logo=mysql&logoColor=white&style=for-the-badge" alt="MySQL 8.4">
+  <img src="https://img.shields.io/badge/Bootstrap-5-7952B3?logo=bootstrap&logoColor=white&style=for-the-badge" alt="Bootstrap 5">
+  <img src="https://img.shields.io/badge/Vite-Frontend-646CFF?logo=vite&logoColor=white&style=for-the-badge" alt="Vite">
+  <img src="https://img.shields.io/badge/Docker-Sail-2496ED?logo=docker&logoColor=white&style=for-the-badge" alt="Docker">
+  <img src="https://img.shields.io/badge/Redis-Cache-DC382D?logo=redis&logoColor=white&style=for-the-badge" alt="Redis">
 </p>
 
-## About Laravel
+## Sobre o projeto
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+O **Gestão de Produção** tem como objetivo centralizar informações de fabricação e facilitar o cálculo do custo real de produtos.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+A proposta é considerar, entre outros fatores:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- matéria-prima utilizada;
+- custo e movimentação de estoque;
+- tempo de mão de obra;
+- tempo e custo de máquinas;
+- processos produtivos;
+- margem de lucro;
+- geração e histórico de orçamentos.
 
-## Learning Laravel
+O projeto está sendo desenvolvido de forma incremental, com foco em boas práticas, organização em MVC e entendimento dos recursos do Laravel.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Funcionalidades
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Implementadas
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+- autenticação de usuários;
+- login e logout;
+- proteção de rotas com middleware;
+- layout Blade reutilizável;
+- interface principal com sidebar colapsável;
+- integração do frontend com Vite;
+- Bootstrap;
+- estrutura inicial do banco de dados;
+- controle de usuários ativos e níveis de acesso na estrutura do banco.
 
-## Agentic Development
+### Planejadas
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+- cadastro e gerenciamento de clientes;
+- cadastro de materiais;
+- movimentações de estoque;
+- bloqueio de estoque negativo;
+- cadastro de produtos;
+- composição de produtos por matéria-prima;
+- cadastro de máquinas;
+- cadastro de processos produtivos;
+- cálculo de custo de mão de obra;
+- cálculo de custo de máquina;
+- cálculo automático do custo de produtos;
+- criação de orçamentos;
+- histórico de valores utilizados em cada orçamento;
+- controle de status e validade de orçamentos.
 
-```bash
-composer require laravel/boost --dev
+## Tecnologias
 
-php artisan boost:install
+| Tecnologia | Uso |
+| --- | --- |
+| Laravel | Backend e estrutura MVC |
+| PHP | Linguagem principal |
+| Blade | Templates e interface |
+| Bootstrap | Componentes e estilização |
+| JavaScript | Comportamentos da interface |
+| Vite | Build e desenvolvimento do frontend |
+| MySQL | Banco de dados |
+| Redis | Cache e serviços auxiliares |
+| Docker | Containers do ambiente |
+| Laravel Sail | Ambiente de desenvolvimento |
+| Meilisearch | Estrutura disponível para busca |
+| Mailpit | Testes de e-mail |
+| Selenium | Testes em navegador |
+
+## Estrutura do banco
+
+A primeira versão do sistema foi planejada em torno das seguintes entidades:
+
+```text
+users
+
+clientes
+
+materiais
+└── movimentacoes_estoque
+
+produtos
+├── produto_materiais
+└── produto_processos
+    ├── processos
+    └── maquinas
+
+orcamentos
+└── orcamento_itens
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### Decisões de modelagem
 
-## Contributing
+- O estoque é controlado por **movimentações**, em vez de manter apenas um saldo fixo.
+- Materiais utilizados por produtos são registrados em uma composição própria.
+- Processos possuem custo de mão de obra por hora.
+- Máquinas possuem custo por hora independente.
+- Tempos de produção são armazenados na relação entre produto e processo.
+- Orçamentos preservam os custos e preços calculados no momento da criação, evitando que alterações futuras modifiquem o histórico.
+- Materiais com histórico de movimentação não devem ser removidos em cascata.
+- A aplicação não deve permitir estoque negativo.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Interface
 
-## Code of Conduct
+A aplicação utiliza dois layouts principais:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```text
+layouts/auth.blade.php
+└── telas de autenticação
 
-## Security Vulnerabilities
+layouts/app.blade.php
+└── interface principal do sistema
+    ├── topbar
+    ├── sidebar colapsável
+    └── conteúdo das páginas
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+A proposta visual é manter a aplicação com aparência de uma interface única, semelhante a um software desktop, onde navegação e barras permanecem consistentes enquanto o conteúdo principal muda.
 
-## License
+## Executando o projeto
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Pré-requisitos
+
+- Docker
+- Docker Compose
+- PHP e Composer para a instalação inicial das dependências
+
+Clone o repositório:
+
+```bash
+git clone https://github.com/DougSchwingel/gestao-producao.git
+cd gestao-producao
+```
+
+Instale as dependências PHP:
+
+```bash
+composer install
+```
+
+Crie o arquivo de ambiente:
+
+```bash
+cp .env.example .env
+```
+
+Suba os containers:
+
+```bash
+./vendor/bin/sail up -d
+```
+
+Gere a chave da aplicação:
+
+```bash
+./vendor/bin/sail artisan key:generate
+```
+
+Execute as migrations:
+
+```bash
+./vendor/bin/sail artisan migrate
+```
+
+Instale as dependências do frontend:
+
+```bash
+./vendor/bin/sail npm install
+```
+
+Inicie o Vite:
+
+```bash
+./vendor/bin/sail npm run dev
+```
+
+A aplicação ficará disponível no endereço configurado para o ambiente Laravel.
+
+## Ambiente de desenvolvimento
+
+O Laravel Sail utiliza os seguintes serviços no projeto:
+
+```text
+laravel.test
+mysql
+redis
+meilisearch
+mailpit
+selenium
+```
+
+## Status do projeto
+
+> Em desenvolvimento.
+
+A estrutura base, autenticação, interface principal e modelagem inicial do banco já estão configuradas. O próximo estágio é implementar os Models, relacionamentos do Eloquent e os módulos funcionais do sistema.
+
+## Autor
+
+**Douglas Schwingel**
+
+[GitHub](https://github.com/DougSchwingel)
